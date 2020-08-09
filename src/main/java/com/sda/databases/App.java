@@ -21,7 +21,7 @@ public class App {
                     resultSet.getDouble(4),
                     resultSet.getDate(5).toLocalDate(),
                     resultSet.getString(6));
-            
+
             System.out.println(String.format("%s %s, hired at %s as %s with salary equals to %s",
                     employee.getFirst_name(),
                     employee.getLast_name(),
@@ -30,6 +30,28 @@ public class App {
                     employee.getSalary()
             ));
         }
+
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE employee SET salary = salary + ? WHERE (DATEDIFF(CURRENT_DATE(), employee.hired_at)/365) >= 2");
+        preparedStatement.setInt(1, 500);
+        preparedStatement.executeUpdate();
+
+        preparedStatement = connection.prepareStatement("UPDATE employee SET position = ? WHERE id = ? ");
+        preparedStatement.setString(1, "Developer");
+        preparedStatement.setInt(2, 1);
+        preparedStatement = connection.prepareStatement("UPDATE employee SET position = ? WHERE id = ? ");
+        preparedStatement.setString(1, "Developer");
+        preparedStatement.setInt(2, 2);
+        preparedStatement = connection.prepareStatement("UPDATE employee SET position = ? WHERE id = ? ");
+        preparedStatement.setString(1, "Developer");
+        preparedStatement.setInt(2, 3);
+        preparedStatement = connection.prepareStatement("UPDATE employee SET position = ? WHERE id = ? ");
+        preparedStatement.setString(1, "Developer");
+        preparedStatement.setInt(2, 4);
+        preparedStatement = connection.prepareStatement("UPDATE employee SET position = ? WHERE id = ? ");
+        preparedStatement.setString(1, "Developer");
+        preparedStatement.setInt(2, 5);
+        preparedStatement.executeUpdate();
+
         statement.close();
         connection.close();
     }
